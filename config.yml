@@ -1,0 +1,27 @@
+postgres:
+  host: "10.223.181.122"
+  port: 54817
+  database: "pgsql_db"
+  username: "sla_user"
+  password: "$SL4_U5e926"
+
+  schema: "public"
+  table: "v_ls_trouble_tickets"
+  where_condition: >
+    WHERE "CREATEFAULTFIRSTOCCURTIME" >= DATE '2026-01-01'
+
+
+oracle:
+  dsn: "10.133.154.175:1521/stat4p"
+  username: "global_gsm"
+  password: "xc%$q2"
+  client_lib_dir: "/home/ayda/oracle/instantclient_21_16"
+  schema: "global_gsm"
+  table: "SLA_OWS_TROUBLE_TICKET"
+
+
+backup:
+  # postgres_to_oracle or oracle_to_postgres
+  direction: "postgres_to_oracle"
+  batch_size: 50
+  log_file: "logs/backup.log"
