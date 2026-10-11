@@ -25,6 +25,9 @@ class OracleDatabase(Database):
         table = self._identifier(self.database_config["table"])
         return f"{schema}.{table}"
 
+    def _unique_key(self):
+        return self._identifier(self.database_config["unique_key"])
+
     def connect(self):
         self.logger.info("Connecting to Oracle...")
 
@@ -100,7 +103,7 @@ class OracleDatabase(Database):
         )
 
         query = (
-            f"INSERT INTO {self._qualified_table()} "
+            f"INSERT /*+ IGNORE_ROW_ON_DUPKEY_INDEX({self._qualified_table()}, {self._unique_key()}) */ INTO {self._qualified_table()}"
             f"({oracle_columns}) VALUES ({bind_variables})"
         )
 

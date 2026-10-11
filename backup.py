@@ -48,6 +48,7 @@ def run_backup():
 
         logger.info("Reading source and target table structures...")
         source_columns = source_database.get_columns()
+        print(source_columns)
 
         if not source_columns:
             raise RuntimeError("No columns found in the source table.")
@@ -80,9 +81,6 @@ def run_backup():
         # ====================================================
         # Prepare target and source cursor
         # ====================================================
-
-        target_database.truncate_table()
-        target_database.commit()
 
         logger.info(
             "Starting transfer from %s to %s...",
@@ -178,7 +176,3 @@ def run_backup():
 
         source_database.close()
         target_database.close()
-
-
-if __name__ == "__main__":
-    run_backup()

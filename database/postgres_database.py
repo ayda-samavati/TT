@@ -60,9 +60,6 @@ class PostgresDatabase(Database):
         cursor = self.connection.cursor(
             name="postgres_backup_cursor"
         )
-        self.logger.info(
-        "Executing query: %s",
-        query.as_string(self.connection))
 
         cursor.itersize = self.config["backup"]["batch_size"]
         cursor.execute(query)
